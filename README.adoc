@@ -1,0 +1,16 @@
+# Reasoned Schemer for Clojure
+:language: clojure
+
+* This project is for the source code translations from _The Reasoned Schemer_ to Clojure
+  `core.logic`.
+
+* Textbook:
+  link:https://www.amazon.com/Reasoned-Schemer-Friedman-Kiselyov-Paperback/dp/B011DAUU32/ref=sr_1_3?ie=UTF8&qid=1529369769&sr=8-3&keywords=reasoned+schemer[The
+  Reasoned Schemer by Friedman, Daniel P., Byrd, William E., Kiselyov, Oleg (2005)
+  Paperback]
+
+
+## License
+Copyright © 2018 Young Tae Kim
+
+Distributed under the Eclipse Public License either version 1.0 or any later version.

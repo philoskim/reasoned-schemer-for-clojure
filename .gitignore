@@ -1,0 +1,8 @@
+.nrepl-port
+.nrepl-history
+.lein-repl-history
+
+*~
+*#
+.#*
+
