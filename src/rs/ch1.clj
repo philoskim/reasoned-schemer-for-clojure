@@ -16,6 +16,7 @@ u#   ; the abbreviation of unsuccessful
   u#)
 ; => ()
 
+; the same as before
 (run false [q]
   u#)
 ; => ()
