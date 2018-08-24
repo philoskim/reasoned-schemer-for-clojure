@@ -1,4 +1,5 @@
 (ns rs.ch1
+  (:refer-clojure :exclude [==])
   (:require [clojure.core.logic :refer :all]))
 
 ;; Chapter 1: Playthings
@@ -7,9 +8,11 @@
 s#
 ; => #function[clojure.core.logic/succeed]
 
+
 ; 1.8
 u#   ; the abbreviation of unsuccessful
 ; => #function[clojure.core.logic/fail]
+
 
 ; 1.10
 (run* [q]
@@ -21,10 +24,12 @@ u#   ; the abbreviation of unsuccessful
   u#)
 ; => ()
 
+
 ; 1.11
 (run* [q]
   (== true q))
 ; => (true)
+
 
 ; 1.12
 (run* [q]
@@ -32,23 +37,27 @@ u#   ; the abbreviation of unsuccessful
   (== true q))
 ; => ()
 
+
 ; 1.13
 (run* [q]
   s#
   (== true q))
 ; => (true)
 
+
 ; 1.15
-(run* (r)
+(run* [r]
   s#
   (== 'corn r))
 ; => (corn)
 
+
 ; 1.17
-(run* (r)
+(run* [r]
   u#
   (== 'corn r))
 ; => ()
+
 
 ; 1.18
 (run* (q)
@@ -56,25 +65,30 @@ u#   ; the abbreviation of unsuccessful
   (== false q))
 ; => (false)
 
+
 ; 1.19
 ; (== false x)
 ; => CompilerException java.lang.RuntimeException: Unable to resolve symbol: x in this context
+
 
 ; 1.20
 (let [x true]
   (== false x))
 ; => #function[clojure.core.logic/==/fn--15821]
 
+
 ; 1.21
 (let [x false]
   (== false x))
 ; => #function[clojure.core.logic/==/fn--15821]
+
 
 ; 1.22
 (run* [x]
   (let [x false]
     (== true x)))
 ; => ()
+
 
 ; 1.23
 (run* [q]
@@ -83,12 +97,14 @@ u#   ; the abbreviation of unsuccessful
     (== true q)))
 ; => (true)
 
+
 ; 1.26
 (run* [q]
   (fresh [x]
     (== x true)
     (== true q)))
 ; => (true)
+
 
 ; 1.27
 (run* [q]
@@ -97,10 +113,12 @@ u#   ; the abbreviation of unsuccessful
     (== q true)))
 ; => (true)
 
+
 ; 1.28
 (run* [x]
   s#)
 ; => (_0)
+
 
 ; 1.29
 (run* [x]
@@ -109,17 +127,20 @@ u#   ; the abbreviation of unsuccessful
       (== true x))))
 ; => (_0)
 
+
 ; 1.30
 (run* [r]
   (fresh [x y]
     (== (lcons x (lcons y ())) r)))
 ; => ((_0 _1))
 
+
 ; 1.31
 (run* [s]
   (fresh [t u]
     (== (lcons t (lcons u ())) s)))
 ; => ((_0 _1))
+
 
 ; 1.32
 (run* [r]
@@ -129,6 +150,7 @@ u#   ; the abbreviation of unsuccessful
         (== (lcons y (lcons x (lcons y ()))) r)))))
 ; => ((_0 _1 _0))
 
+
 ; 1.33
 (run* [r]
   (fresh [x]
@@ -137,11 +159,13 @@ u#   ; the abbreviation of unsuccessful
         (== (lcons x (lcons y (lcons x ()))) r)))))
 ; => ((_0 _1 _0))
 
+
 ; 1.34
 (run* [q]
   (== false q)
   (== true q))
 ; => ()
+
 
 ; 1.35
 (run* [q]
@@ -149,17 +173,20 @@ u#   ; the abbreviation of unsuccessful
   (== false q))
 ; => (false)
 
+
 ; 1.36
 (run* [q]
   (let [x q]
     (== true x)))
 ; => (true)
 
+
 ; 1.37
 (run* [r]
   (fresh [x]
     (== x r)))
 ; => (_0)
+
 
 ; 1.38
 (run* [q]
@@ -168,12 +195,14 @@ u#   ; the abbreviation of unsuccessful
     (== x q)))
 ; => (true)
 
+
 ; 1.39
 (run* [q]
   (fresh [x]
     (== x q)
     (== true x)))
 ; => (true)
+
 
 ; 1.40
 (run* [q]
@@ -193,11 +222,13 @@ u#   ; the abbreviation of unsuccessful
       (== (= x q) x))))
 ; => (false)
 
+
 ; 1.41
 (cond
   false true
   :else false)
 ; => false
+
 
 ; 1.43
 (cond
@@ -205,23 +236,27 @@ u#   ; the abbreviation of unsuccessful
   :else u#)
 ; => #function[clojure.core.logic/fail]
 
+
 ; 1.44
 (conde
   [u# s#]
   [s# u#])
 ; => #function[logic-deom.reasoned.ch01/eval17028/fn--17029]
 
+
 ; 1.45
 (conde
-  [u# s#]
+  [u# u#]
   [s# u#])
 ; => #function[logic-deom.reasoned.ch01/eval17019/fn--17020]
+
 
 ; 1.46
 (conde
   [s# s#]
   [s# u#])
 ; => #function[logic-deom.reasoned.ch01/eval17039/fn--17040]
+
 
 ; 1.47
 (run* [x]
@@ -231,6 +266,7 @@ u#   ; the abbreviation of unsuccessful
     [s# u#]))
 ; => (olive oil)
 
+
 ; 1.49
 (run 1 [x]
   (conde
@@ -238,6 +274,7 @@ u#   ; the abbreviation of unsuccessful
     [(== 'oil x) s#]
     [s# u#]))
 ; => (olive)
+
 
 ; 1.50
 (run* [x]
@@ -248,6 +285,15 @@ u#   ; the abbreviation of unsuccessful
     [(== 'oil x) s#]
     [s# u#]))
 ; => (olive _0 oil)
+
+(run* [x]
+  (conde
+    [(== 'virgin x) u#]
+    [(== 'olive x) s#]
+    [s# s#]
+    [(== 'oil x) s#]))
+; => (olive _0 oil)
+
 
 ; 1.52
 (run 2 [x]
@@ -260,14 +306,16 @@ u#   ; the abbreviation of unsuccessful
     [s# u#]))
 ; => (extra virgin)
 
+
 ; 1.53
 (run* [r]
   (fresh [x y]
     (conde
       [(== 'split x)
        (== 'pea y)
-       (== (lcons x (cons y '())) r)])))
+       (== (lcons x (cons y ())) r)])))
 ; => ((split pea))
+
 
 ; 1.54
 (run* (r)
@@ -279,6 +327,7 @@ u#   ; the abbreviation of unsuccessful
     (== (lcons x (lcons y ())) r)))
 ; => ((split pea) (navy bean))
 
+
 ; 1.55
 (run* (r)
   (fresh [x y]
@@ -288,6 +337,7 @@ u#   ; the abbreviation of unsuccessful
       [s# u#])
     (== (lcons x (lcons y (lcons 'soup ()))) r)))
 ; => ((split pea soup) (navy bean soup))
+
 
 ; 1.56
 (defn teacupo [x]
@@ -300,7 +350,10 @@ u#   ; the abbreviation of unsuccessful
   (teacupo x))
 ; => (tea cup)
 
+
 ; 1.57
+; The reason why the result order is different from the textbook is explained in
+; https://github.com/clojure/core.logic/wiki/Differences-from-The-Reasoned-Schemer
 (run* [r]
   (fresh [x y]
     (conde
@@ -309,6 +362,7 @@ u#   ; the abbreviation of unsuccessful
       [s# u#])
     (== (lcons x (lcons y ())) r)))
 ; => ((false true) (tea true) (cup true))
+
 
 ; 1.58
 (run* [r]
@@ -320,6 +374,8 @@ u#   ; the abbreviation of unsuccessful
     (== (lcons y (lcons z ())) r)))
 ; => ((_0 _1) (_0 _1))
 
+
+; 1.59
 (run* [r]
   (fresh [x y z]
     (conde
@@ -328,6 +384,8 @@ u#   ; the abbreviation of unsuccessful
       [s# u#])
     (== false x)
     (== (lcons y (lcons z ())) r)))
+; => ((false _0) (_0 false))
+
 
 ; 1.60
 (run* [q]
@@ -335,6 +393,7 @@ u#   ; the abbreviation of unsuccessful
         b (== false q)]
     b))
 ; => (false)
+
 
 ; 1.61
 (run* [q]
