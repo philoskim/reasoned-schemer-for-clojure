@@ -495,7 +495,7 @@
 ; => (pasta)
 
 
-; 3.97
+; 3.98
 (defn memberrevo [x l]
   (conde
     [(emptyo l) u#]
