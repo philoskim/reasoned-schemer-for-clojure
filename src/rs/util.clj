@@ -19,3 +19,6 @@
        (resto l d)
        (listo d))]
     [s# u#]))
+
+(defmacro t [msg & args]
+  `(trace-lvars ~(str "\n" msg) ~@args))

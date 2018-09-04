@@ -318,7 +318,7 @@ u#   ; the abbreviation of unsuccessful
 
 
 ; 1.54
-(run* (r)
+(run* [r]
   (fresh [x y]
     (conde
       [(== 'split x) (== 'pea y)]
@@ -329,7 +329,7 @@ u#   ; the abbreviation of unsuccessful
 
 
 ; 1.55
-(run* (r)
+(run* [r]
   (fresh [x y]
     (conde
       [(== 'split x) (== 'pea y)]

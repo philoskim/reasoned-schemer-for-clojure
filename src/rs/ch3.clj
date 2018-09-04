@@ -3,8 +3,6 @@
   (:require [clojure.core.logic :refer :all]
             [rs.util :as ut]))
 
-(use 'debux.core)
-
 ;; Chapter 3: Seeing Old Friends in New Ways
 
 ; 3.1
@@ -495,6 +493,8 @@
 ; => (pasta)
 
 
+
+
 ; 3.98
 (defn memberrevo [x l]
   (conde
@@ -502,7 +502,7 @@
     [s# (fresh [d]
           (resto l d)
           (memberrevo x d))]
-    [s# (eq-caro l x)]))
+    [s# (firsto l x)]))
 
 
 ; 3.100
